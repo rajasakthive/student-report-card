@@ -1,0 +1,765 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Student - Tuition Manager</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Poppins", sans-serif;
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(168, 85, 247, .25),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(109, 40, 217, .25),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #090014,
+                    #18002f,
+                    #090014
+                );
+        }
+
+        .container {
+            width: min(900px, 92%);
+            margin: auto;
+            padding: 30px 0 50px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .back {
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 14px;
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #a855f7,
+                    #581c87
+                );
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 0 #321052,
+                0 12px 20px rgba(0,0,0,.35);
+        }
+
+        .back:active {
+            transform: translateY(5px);
+
+            box-shadow:
+                0 2px 0 #321052;
+        }
+
+        .title h1 {
+            font-size: 25px;
+        }
+
+        .title p {
+            color: #a99bb4;
+            font-size: 12px;
+        }
+
+        .form-card {
+            padding: 35px;
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.12),
+                    rgba(255,255,255,.04)
+                );
+
+            border: 1px solid rgba(255,255,255,.12);
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 25px 50px rgba(0,0,0,.45),
+                inset 0 2px 3px rgba(255,255,255,.12);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #d6c8df;
+        }
+
+        label span {
+            color: #c084fc;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,.12);
+            outline: none;
+
+            color: white;
+            background: rgba(255,255,255,.06);
+
+            font-family: inherit;
+            transition: .25s;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #75697d;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #a855f7;
+
+            box-shadow:
+                0 0 0 3px rgba(168,85,247,.12);
+        }
+
+        select option {
+            background: #24102f;
+            color: white;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-area {
+            margin-top: 30px;
+
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 25px;
+
+            border: none;
+            border-radius: 15px;
+
+            font-family: inherit;
+            font-weight: 600;
+
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .cancel {
+            color: #d5c9dc;
+            background: rgba(255,255,255,.08);
+        }
+
+        .save {
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #c084fc,
+                    #6d28d9
+                );
+
+            box-shadow:
+                0 7px 0 #351060,
+                0 12px 20px rgba(109,40,217,.3);
+        }
+
+        .save:hover {
+            transform: translateY(-3px);
+        }
+
+        .save:active {
+            transform: translateY(5px);
+
+            box-shadow:
+                0 2px 0 #351060;
+        }
+
+        .save:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #message {
+            display: none;
+
+            margin-top: 20px;
+            padding: 14px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .success {
+            display: block !important;
+
+            background: rgba(34,197,94,.15);
+            border: 1px solid rgba(34,197,94,.3);
+            color: #86efac;
+        }
+
+        .error {
+            display: block !important;
+
+            background: rgba(239,68,68,.15);
+            border: 1px solid rgba(239,68,68,.3);
+            color: #fca5a5;
+        }
+
+        @media(max-width:700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+
+            .submit-area {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+        <button
+            class="back"
+            type="button"
+            onclick="goBack()">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+        </button>
+
+        <div class="title">
+
+            <h1>Add Student</h1>
+
+            <p>
+                Register a new student
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <div class="form-card">
+
+        <form id="studentForm">
+
+            <div class="form-grid">
+
+                <!-- NAME -->
+
+                <div class="field">
+
+                    <label>
+                        Student Name <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentName"
+                        placeholder="Enter student name"
+                        required>
+
+                </div>
+
+
+                <!-- ROLL NUMBER -->
+
+                <div class="field">
+
+                    <label>
+                        Roll Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="rollNumber"
+                        placeholder="Enter roll number">
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="field">
+
+                    <label>
+                        Phone Number <span>*</span>
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Enter phone number"
+                        required>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter email address">
+
+                </div>
+
+
+                <!-- CLASS -->
+
+                <div class="field">
+
+                    <label>
+                        Class
+                    </label>
+
+                    <select id="studentClass">
+
+                        <option value="">
+                            Select Class
+                        </option>
+
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                        <option value="11">Class 11</option>
+                        <option value="12">Class 12</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- GENDER -->
+
+                <div class="field">
+
+                    <label>
+                        Gender
+                    </label>
+
+                    <select id="gender">
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="field full">
+
+                    <label>
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        placeholder="Enter student address"></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div id="message"></div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="submit-area">
+
+                <button
+                    type="button"
+                    class="btn cancel"
+                    onclick="goBack()">
+
+                    Cancel
+
+                </button>
+
+                <button  
+                    type="submit"
+                    class="btn save"
+                    id="saveButton">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    Save Student
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+     * IMPORTANT:
+     * This is the Django API endpoint.
+     *
+     * Based on your previous Django URL configuration:
+     *
+     * reports/urls.py
+     *     students/create/
+     *
+     * project urls.py
+     *     api/reports/
+     *
+     * Therefore:
+     */
+
+    const API_URL =
+        "http://127.0.0.1:8000/api/reports/students/create/";
+
+
+    function goBack() {
+
+        window.location.href = "index.html";
+
+    }
+
+
+    document
+        .getElementById("studentForm")
+        .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+
+            const message =
+                document.getElementById("message");
+
+            const saveButton =
+                document.getElementById("saveButton");
+
+
+            /*
+             * Clear old message
+             */
+
+            message.className = "";
+            message.innerText = "";
+
+
+            /*
+             * Get form values
+             */
+
+            const studentData = {
+
+                name:
+                    document
+                    .getElementById("studentName")
+                    .value
+                    .trim(),
+
+                roll_number:
+                    document
+                    .getElementById("rollNumber")
+                    .value
+                    .trim(),
+
+                phone:
+                    document
+                    .getElementById("phone")
+                    .value
+                    .trim(),
+
+                email:
+                    document
+                    .getElementById("email")
+                    .value
+                    .trim(),
+
+                student_class:
+                    document
+                    .getElementById("studentClass")
+                    .value,
+
+                gender:
+                    document
+                    .getElementById("gender")
+                    .value,
+
+                address:
+                    document
+                    .getElementById("address")
+                    .value
+                    .trim()
+            };
+
+
+            /*
+             * Disable button while saving
+             */
+
+            saveButton.disabled = true;
+
+            saveButton.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+
+            try {
+
+                console.log("Sending student data:");
+                console.log(studentData);
+
+                console.log("API URL:");
+                console.log(API_URL);
+
+
+                /*
+                 * Send data to Django
+                 */
+
+                const response = await fetch(
+                    API_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+
+                        body: JSON.stringify(studentData)
+                    }
+                );
+
+
+                /*
+                 * Read response as TEXT first.
+                 *
+                 * This prevents:
+                 *
+                 * Unexpected token '<'
+                 *
+                 * when Django returns HTML.
+                 */
+
+                const responseText =
+                    await response.text();
+
+
+                console.log(
+                    "Django response:",
+                    responseText
+                );
+
+
+                /*
+                 * Try to convert response to JSON
+                 */
+
+                let data = {};
+
+                try {
+
+                    data = JSON.parse(responseText);
+
+                } catch (jsonError) {
+
+                    console.error(
+                        "Django returned non-JSON response:",
+                        responseText
+                    );
+
+                    throw new Error(
+                        "Backend returned HTML instead of JSON. Check Django API URL."
+                    );
+
+                }
+
+
+                /*
+                 * Django returned an error
+                 */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.error ||
+                        data.detail ||
+                        "Failed to save student"
+                    );
+
+                }
+
+
+                /*
+                 * SUCCESS
+                 */
+
+                message.className =
+                    "success";
+
+                message.innerText =
+                    "✓ Student saved successfully!";
+
+
+                /*
+                 * Clear form
+                 */
+
+                document
+                    .getElementById("studentForm")
+                    .reset();
+
+
+            }
+
+            catch(error) {
+
+                console.error(
+                    "Student save error:",
+                    error
+                );
+
+
+                message.className =
+                    "error";
+
+                message.innerText =
+                    "✕ " + error.message;
+
+            }
+
+            finally {
+
+                /*
+                 * Enable button again
+                 */
+
+                saveButton.disabled = false;
+
+                saveButton.innerHTML =
+                    '<i class="fa-solid fa-user-plus"></i> Save Student';
+
+            }
+
+        });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Professional Weekly Tuition Report</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(-45deg,#0f4c81,#1976d2,#42a5f5,#bbdefb);
+    background-size:400% 400%;
+    animation:bgMove 18s ease infinite;
+    padding:30px;
+    overflow-x:hidden;
+    position:relative;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:280px;
+    height:280px;
+    background:radial-gradient(circle at 30% 30%,#fff,#64b5f6,#1565c0);
+    border-radius:50%;
+    top:-70px;
+    left:-70px;
+    box-shadow:
+        inset -20px -20px 40px rgba(0,0,0,.25),
+        0 30px 70px rgba(0,0,0,.35);
+    animation:float1 8s ease-in-out infinite;
+    z-index:-3;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:340px;
+    height:340px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#fff,#90caf9,#1976d2);
+    right:-90px;
+    bottom:-90px;
+    box-shadow:
+        inset -25px -25px 45px rgba(0,0,0,.25),
+        0 35px 80px rgba(0,0,0,.35);
+    animation:float2 10s ease-in-out infinite;
+    z-index:-3;
+}
+
+@keyframes float1{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(30px);}
+}
+
+@keyframes float2{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-30px);}
+}
+
+.hex{
+    position:fixed;
+    width:120px;
+    height:104px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+    clip-path:polygon(
+        25% 6%,
+        75% 6%,
+        100% 50%,
+        75% 94%,
+        25% 94%,
+        0% 50%
+    );
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+    animation:rotateHex 20s linear infinite;
+    z-index:-2;
+}
+
+.hex.one{
+    top:140px;
+    right:120px;
+}
+
+.hex.two{
+    bottom:150px;
+    left:100px;
+    animation-duration:28s;
+}
+
+@keyframes rotateHex{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(18px);
+    border-radius:20px;
+    padding:35px;
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25),
+        inset 0 1px 2px rgba(255,255,255,.6);
+}
+
+.header{
+    text-align:center;
+    padding-bottom:20px;
+    border-bottom:5px solid #1976d2;
+    margin-bottom:30px;
+}
+
+.header h1{
+    font-size:36px;
+    color:#1565c0;
+    margin-bottom:10px;
+}
+
+.header h3{
+    color:#444;
+}
+
+.header p{
+    margin-top:8px;
+    color:#666;
+}
+
+.section{
+    background:linear-gradient(90deg,#1565c0,#42a5f5);
+    color:white;
+    padding:12px 18px;
+    font-size:20px;
+    border-radius:8px;
+    margin-top:25px;
+    margin-bottom:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:20px;
+    background:white;
+}
+
+table th{
+    background:#1976d2;
+    color:white;
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+table td{
+    padding:10px;
+    border:1px solid #ddd;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:8px;
+    border:1px solid #ddd;
+    border-radius:5px;
+    outline:none;
+    font-size:15px;
+    background:white;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#1976d2;
+    box-shadow:0 0 5px rgba(25,118,210,.2);
+}
+
+textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+.note{
+    color:#555;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.center{
+    text-align:center;
+}
+
+.radio-group{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.radio-group input{
+    width:auto;
+}
+
+.radio-group label{
+    font-size:13px;
+    cursor:pointer;
+}
+
+.checkbox-list label{
+    display:block;
+    margin:10px 0;
+    cursor:pointer;
+}
+
+.checkbox-list input{
+    width:auto;
+    margin-right:8px;
+}
+
+.save-container{
+    text-align:center;
+    margin:30px 0;
+}
+
+.save-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:14px 30px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:8px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(37,99,235,.3);
+}
+
+.save-btn:hover{
+    background:#1d4ed8;
+}
+
+.save-btn:disabled{
+    background:#888;
+    cursor:not-allowed;
+}
+
+.small-input{
+    max-width:100px;
+}
+
+@media(max-width:700px){
+
+    body{
+        padding:10px;
+    }
+
+    .container{
+        padding:15px;
+    }
+
+    .header h1{
+        font-size:25px;
+    }
+
+    table{
+        font-size:13px;
+    }
+
+    table td,
+    table th{
+        padding:7px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hex one"></div>
+<div class="hex two"></div>
+
+<div class="container">
+
+<div class="header">
+
+<h1>📘 WEEKLY TUITION REPORT CARD</h1>
+
+<h3>Academic Progress Monitoring Sheet</h3>
+
+<p>
+Class Duration : 2 Hours |
+Student Performance Evaluation
+</p>
+
+</div>
+
+
+<!-- STUDENT INFORMATION -->
+
+<div class="section">
+👤 Student Information
+</div>
+
+<table>
+
+<tr>
+
+<td width="20%"><b>Student Name</b></td>
+
+<td width="30%">
+<input
+    type="text"
+    id="student_name"
+    name="student_name"
+    required
+>
+</td>
+
+<td width="20%"><b>Class</b></td>
+
+<td width="30%">
+<input
+    type="text"
+    id="student_class"
+    name="student_class"
+>
+</td>
+
+</tr>
+
+<tr>
+
+<td><b>Parent Name</b></td>
+
+<td>
+<input
+    type="text"
+    id="parent_name"
+    name="parent_name"
+>
+</td>
+
+<td><b>Contact No.</b></td>
+
+<td>
+<input
+    type="text"
+    id="contact_no"
+    name="contact_no"
+>
+</td>
+
+</tr>
+
+<tr>
+
+<td><b>Date</b></td>
+
+<td>
+<input
+    type="date"
+    id="date"
+    required
+>
+</td>
+
+<td><b>Day</b></td>
+
+<td>
+<input
+    type="text"
+    id="day"
+    placeholder="Monday"
+>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- SESSION INFORMATION -->
+
+<div class="section">
+🕒 Session Information
+</div>
+
+<table>
+
+<tr>
+
+<td><b>Session Time</b></td>
+
+<td>
+<input
+    placeholder="6:00 PM - 8:00 PM"
+    id="session_time"
+>
+</td>
+
+<td><b>Duration</b></td>
+
+<td>
+<input
+    value="2 Hours"
+    id="duration"
+>
+</td>
+
+</tr>
+
+<tr>
+
+<td><b>Tutor Name</b></td>
+
+<td>
+<input id="tutor_name">
+</td>
+
+<td><b>Class Type</b></td>
+
+<td>
+<input
+    id="class_type"
+    value="Individual"
+>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- ATTENDANCE -->
+
+<div class="section">
+✅ Attendance
+</div>
+
+<table>
+
+<tr>
+
+<th>Status</th>
+<th>Arrival Time</th>
+<th>Departure Time</th>
+<th>Punctuality</th>
+
+</tr>
+
+<tr>
+
+<td class="center">
+Present
+</td>
+
+<td>
+<input
+    id="arrival_time"
+    placeholder="6:00 PM"
+>
+</td>
+
+<td>
+<input
+    id="departure_time"
+    placeholder="8:00 PM"
+>
+</td>
+
+<td>
+<input
+    id="punctuality"
+    value="Excellent"
+>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- SUBJECTS -->
+
+<div class="section">
+📚 Subjects Covered
+</div>
+
+<p class="note">
+Enter the subjects/topics taught during today's tuition.
+</p>
+
+<table>
+
+<tr>
+
+<th width="20%">Subject</th>
+<th>Topics Covered</th>
+<th width="20%">Completed</th>
+
+</tr>
+
+<tr>
+
+<td>Mathematics</td>
+
+<td>
+<input id="mathematics_topics">
+</td>
+
+<td>
+<select id="mathematics_completed">
+<option value="false">No</option>
+<option value="true">Yes</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Science</td>
+
+<td>
+<input id="science_topics">
+</td>
+
+<td>
+<select id="science_completed">
+<option value="false">No</option>
+<option value="true">Yes</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>English</td>
+
+<td>
+<input id="english_topics">
+</td>
+
+<td>
+<select id="english_completed">
+<option value="false">No</option>
+<option value="true">Yes</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Tamil</td>
+
+<td>
+<input id="tamil_topics">
+</td>
+
+<td>
+<select id="tamil_completed">
+<option value="false">No</option>
+<option value="true">Yes</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Social Science</td>
+
+<td>
+<input id="social_science_topics">
+</td>
+
+<td>
+<select id="social_science_completed">
+<option value="false">No</option>
+<option value="true">Yes</option>
+</select>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- LEARNING OBJECTIVES -->
+
+<div class="section">
+🎯 Learning Objectives Achieved
+</div>
+
+<table>
+
+<tr>
+<th>Objective</th>
+<th>Rating</th>
+</tr>
+
+<tr>
+
+<td>Concept Explained Clearly</td>
+
+<td>
+<select id="objective_concept">
+<option value="">Select</option>
+<option value="Yes">Yes</option>
+<option value="Partially">Partially</option>
+<option value="No">No</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Student Understood the Lesson</td>
+
+<td>
+<select id="objective_understood">
+<option value="">Select</option>
+<option value="Yes">Yes</option>
+<option value="Partially">Partially</option>
+<option value="No">No</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Doubts Cleared</td>
+
+<td>
+<select id="objective_doubts">
+<option value="">Select</option>
+<option value="Yes">Yes</option>
+<option value="Partially">Partially</option>
+<option value="No">No</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Revision Completed</td>
+
+<td>
+<select id="objective_revision">
+<option value="">Select</option>
+<option value="Yes">Yes</option>
+<option value="Partially">Partially</option>
+<option value="No">No</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Practice Questions Completed</td>
+
+<td>
+<select id="objective_practice">
+<option value="">Select</option>
+<option value="Yes">Yes</option>
+<option value="Partially">Partially</option>
+<option value="No">No</option>
+</select>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- STUDENT LEARNING -->
+
+<div class="section">
+🧠 Student Learning Assessment
+</div>
+
+<table>
+
+<tr>
+
+<th>Criteria</th>
+<th>Rating</th>
+
+</tr>
+
+<tr>
+
+<td>Understanding Weekly's Lesson</td>
+
+<td>
+<select id="assessment_understanding">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Memory & Recall</td>
+
+<td>
+<select id="assessment_memory">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Problem Solving Ability</td>
+
+<td>
+<select id="assessment_problem">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Speed of Learning</td>
+
+<td>
+<select id="assessment_speed">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Application of Concepts</td>
+
+<td>
+<select id="assessment_application">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- BEHAVIOUR -->
+
+<div class="section">
+😊 Behaviour & Discipline
+</div>
+
+<table>
+
+<tr>
+
+<th>Behaviour</th>
+<th>Rating</th>
+
+</tr>
+
+<tr>
+
+<td>Respect Towards Teacher</td>
+
+<td>
+<select id="behaviour_respect">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Class Discipline</td>
+
+<td>
+<select id="behaviour_discipline">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Participation</td>
+
+<td>
+<select id="behaviour_participation">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- ACADEMIC SKILLS -->
+
+<div class="section">
+📖 Academic Skills Evaluation
+</div>
+
+<table>
+
+<tr>
+
+<th>Skill</th>
+<th>Rating</th>
+
+</tr>
+
+<tr>
+<td>Reading Skill</td>
+<td>
+<select id="skill_reading">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Writing Skill</td>
+<td>
+<select id="skill_writing">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Speaking Skill</td>
+<td>
+<select id="skill_speaking">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Listening Skill</td>
+<td>
+<select id="skill_listening">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Communication Skill</td>
+<td>
+<select id="skill_communication">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+</tr>
+
+</table>
+
+
+<!-- PERFORMANCE -->
+
+<div class="section">
+⭐ Overall Performance Rating
+</div>
+
+<table>
+
+<tr>
+
+<th>Category</th>
+<th>Rating</th>
+
+</tr>
+
+<tr>
+
+<td>Today's Overall Performance</td>
+
+<td>
+<select id="overall_performance">
+<option value="5 Stars">5 Stars</option>
+<option value="4 Stars">4 Stars</option>
+<option value="3 Stars" selected>3 Stars</option>
+<option value="2 Stars">2 Stars</option>
+<option value="1 Star">1 Star</option>
+</select>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- IMPROVEMENT -->
+
+<div class="section">
+📈 Areas Needing Improvement
+</div>
+
+<table>
+
+<tr>
+
+<th>Improvement Area</th>
+<th>Priority</th>
+
+</tr>
+
+<tr>
+<td>Reading Practice</td>
+<td>
+<select id="reading_priority">
+<option value="">Select</option>
+<option value="High">High</option>
+<option value="Medium">Medium</option>
+<option value="Low">Low</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Revision</td>
+<td>
+<select id="revision_priority">
+<option value="">Select</option>
+<option value="High">High</option>
+<option value="Medium">Medium</option>
+<option value="Low">Low</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Time Management</td>
+<td>
+<select id="time_management_priority">
+<option value="">Select</option>
+<option value="High">High</option>
+<option value="Medium">Medium</option>
+<option value="Low">Low</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Concentration</td>
+<td>
+<select id="concentration_priority">
+<option value="">Select</option>
+<option value="High">High</option>
+<option value="Medium">Medium</option>
+<option value="Low">Low</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Mathematics Practice</td>
+<td>
+<select id="mathematics_priority">
+<option value="">Select</option>
+<option value="High">High</option>
+<option value="Medium">Medium</option>
+<option value="Low">Low</option>
+</select>
+</td>
+</tr>
+
+</table>
+
+
+<!-- CLASS TEST -->
+
+<div class="section">
+📊 Class Test Performance
+</div>
+
+<table>
+
+<tr>
+
+<th>Subject</th>
+<th>Total Marks</th>
+<th>Marks Obtained</th>
+<th>Percentage</th>
+<th>Grade</th>
+
+</tr>
+
+<tr>
+
+<td>Maths</td>
+
+<td>
+<input
+    type="number"
+    id="maths_total"
+    value="100"
+>
+</td>
+
+<td>
+<input
+    type="number"
+    id="maths_obtained"
+    min="0"
+>
+</td>
+
+<td>
+<input
+    type="number"
+    id="maths_percentage"
+    readonly
+>
+</td>
+
+<td>
+<input
+    type="text"
+    id="maths_grade"
+    readonly
+>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Tamil</td>
+
+<td>
+<input
+    type="number"
+    id="tamil_total"
+    value="20"
+>
+</td>
+
+<td>
+<input
+    type="number"
+    id="tamil_obtained"
+    min="0"
+>
+</td>
+
+<td>
+<input
+    type="number"
+    id="tamil_percentage"
+    readonly
+>
+</td>
+
+<td>
+<input
+    type="text"
+    id="tamil_grade"
+    readonly
+>
+</td>
+
+</tr>
+
+<tr>
+
+<td>English</td>
+
+<td>
+<input
+    type="number"
+    id="english_total"
+    value="10"
+>
+</td>
+
+<td>
+<input
+    type="number"
+    id="english_obtained"
+    min="0"
+>
+</td>
+
+<td>
+<input
+    type="number"
+    id="english_percentage"
+    readonly
+>
+</td>
+
+<td>
+<input
+    type="text"
+    id="english_grade"
+    readonly
+>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Science</td>
+
+<td>
+<input
+    type="number"
+    id="science_total"
+    value="10"
+>
+</td>
+
+<td>
+<input
+    type="number"
+    id="science_obtained"
+    min="0"
+>
+</td>
+
+<td>
+<input
+    type="number"
+    id="science_percentage"
+    readonly
+>
+</td>
+
+<td>
+<input
+    type="text"
+    id="science_grade"
+    readonly
+>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- ACHIEVEMENTS -->
+
+<div class="section">
+🏆 Achievements This Week
+</div>
+
+<textarea
+    id="achievements"
+    placeholder="Mention achievements, improvements, awards, or special appreciation."
+></textarea>
+
+
+<!-- GOALS -->
+
+<div class="section">
+🎯 Goals for Next Class
+</div>
+
+<textarea
+    id="next_class_goals"
+    placeholder="Example: Improve multiplication speed, revise Science Chapter..."
+></textarea>
+
+
+<!-- TEACHER REMARKS -->
+
+<div class="section">
+💬 Teacher's Daily Remarks
+</div>
+
+<textarea
+    id="teacher_remarks"
+    placeholder="Write a detailed summary of today's class."
+></textarea>
+
+
+<!-- PARENT FEEDBACK -->
+
+<div class="section">
+👨‍👩‍👧 Parent Feedback
+</div>
+
+<textarea
+    id="parent_feedback"
+    placeholder="Parent's comments or acknowledgement."
+></textarea>
+
+
+<!-- IMPORTANT NOTES -->
+
+<div class="section">
+📌 Important Notes
+</div>
+
+<div class="checkbox-list">
+
+<label>
+<input type="checkbox" id="additional_revision">
+Student needs additional revision.
+</label>
+
+<label>
+<input type="checkbox" id="exceptional_performance">
+Student performed exceptionally well.
+</label>
+
+<label>
+<input type="checkbox" id="parent_meeting">
+Parent meeting recommended.
+</label>
+
+<label>
+<input type="checkbox" id="notebook">
+Bring notebook next class.
+</label>
+
+<label>
+<input type="checkbox" id="worksheets">
+Extra worksheets provided.
+</label>
+
+<label>
+<input type="checkbox" id="oral_test">
+Oral test scheduled.
+</label>
+
+<label>
+<input type="checkbox" id="unit_test">
+Unit test preparation started.
+</label>
+
+<label>
+<input type="checkbox" id="excellent_improvement">
+Excellent improvement compared to previous class.
+</label>
+
+</div>
+
+
+<!-- OVERALL EVALUATION -->
+
+<div class="section">
+📈 Overall Evaluation
+</div>
+
+<table>
+
+<tr>
+
+<th>Category</th>
+<th>Rating</th>
+
+</tr>
+
+<tr>
+
+<td>Overall Progress</td>
+
+<td>
+<select id="evaluation_progress">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Overall Behaviour</td>
+
+<td>
+<select id="evaluation_behaviour">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Overall Participation</td>
+
+<td>
+<select id="evaluation_participation">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td>Overall Performance</td>
+
+<td>
+<select id="evaluation_performance">
+<option value="">Select</option>
+<option value="Excellent">Excellent</option>
+<option value="Good">Good</option>
+<option value="Average">Average</option>
+<option value="Needs Improvement">Needs Improvement</option>
+</select>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- MEETING -->
+
+<div class="section">
+📌 Parent & Teacher Meeting Record
+</div>
+
+<table>
+
+<tr>
+
+<th>Date</th>
+<th>Discussion</th>
+<th>Action Taken</th>
+
+</tr>
+
+<tr>
+
+<td>
+<input
+    type="date"
+    id="meeting_date"
+>
+</td>
+
+<td>
+<textarea
+    id="meeting_discussion"
+    style="height:60px;"
+></textarea>
+</td>
+
+<td>
+<textarea
+    id="meeting_action"
+    style="height:60px;"
+></textarea>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- NEXT CLASS -->
+
+<div class="section">
+📚 Next Class Preparation
+</div>
+
+<table>
+
+<tr>
+
+<th>Subject</th>
+<th>Topic to be Covered</th>
+<th>Materials Required</th>
+
+</tr>
+
+<tr>
+
+<td>
+<input id="next_subject">
+</td>
+
+<td>
+<input id="next_topic">
+</td>
+
+<td>
+<input id="materials_required">
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- SIGNATURES -->
+
+<div class="section">
+✍ Signatures
+</div>
+
+<table>
+
+<tr>
+
+<td align="center">
+
+<br><br>
+
+________________________________
+
+<br>
+
+<b>Teacher Signature</b>
+
+</td>
+
+<td align="center">
+
+<br>
+
+<input id="parent_signature">
+
+<br>
+
+________________________________
+
+<br>
+
+<b>Parent Signature</b>
+
+</td>
+
+<td align="center">
+
+<br><br>
+
+________________________________
+
+<br>
+
+<b>Student Signature</b>
+
+</td>
+
+</tr>
+
+</table>
+
+
+<hr style="border:1px solid #1976d2; margin:30px 0;">
+
+<p style="
+    text-align:center;
+    font-size:15px;
+    color:#555;
+    line-height:28px;
+">
+
+📘 <b>Professional Daily Tuition Report Card</b>
+
+<br>
+
+Prepared for Academic Progress Monitoring
+
+<br>
+
+Class Duration : <b>2 Hours</b>
+
+<br>
+
+Suitable for Classes <b>6th to 10th Standard</b>
+
+<br><br>
+
+© 2026 Tuition Progress Monitoring System
+
+</p>
+
+</div>
+
+
+<!-- SAVE BUTTON -->
+
+<div class="save-container">
+
+<button
+    type="button"
+    class="save-btn"
+    onclick="saveReport()"
+    id="saveButton"
+>
+    💾 Save Report
+</button>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   HELPER FUNCTIONS
+========================================================= */
+
+function getValue(id) {
+
+    const element = document.getElementById(id);
+
+    if (!element) {
+        return "";
+    }
+
+    return element.value;
+
+}
+
+
+function getChecked(id) {
+
+    const element = document.getElementById(id);
+
+    if (!element) {
+        return false;
+    }
+
+    return element.checked;
+
+}
+
+
+function getBoolean(id) {
+
+    return getValue(id) === "true";
+
+}
+
+
+/* =========================================================
+   TEST PERCENTAGE
+========================================================= */
+
+function calculateTest(totalId, obtainedId, percentageId, gradeId) {
+
+    const total = parseFloat(
+        getValue(totalId)
+    ) || 0;
+
+    const obtained = parseFloat(
+        getValue(obtainedId)
+    ) || 0;
+
+    let percentage = 0;
+
+    if (total > 0) {
+
+        percentage =
+            (obtained / total) * 100;
+
+    }
+
+    percentage =
+        Math.round(percentage * 100) / 100;
+
+    let grade = "";
+
+    if (obtained !== 0 || total !== 0) {
+
+        if (percentage >= 90) {
+            grade = "A+";
+        }
+        else if (percentage >= 80) {
+            grade = "A";
+        }
+        else if (percentage >= 60) {
+            grade = "B";
+        }
+        else if (percentage >= 50) {
+            grade = "C";
+        }
+        else {
+            grade = "D";
+        }
+
+    }
+
+    document.getElementById(
+        percentageId
+    ).value = percentage;
+
+    document.getElementById(
+        gradeId
+    ).value = grade;
+
+}
+
+
+/* =========================================================
+   CALCULATE TESTS WHEN MARKS CHANGE
+========================================================= */
+
+document.getElementById("maths_obtained")
+.addEventListener("input", function(){
+
+    calculateTest(
+        "maths_total",
+        "maths_obtained",
+        "maths_percentage",
+        "maths_grade"
+    );
+
+});
+
+
+document.getElementById("tamil_obtained")
+.addEventListener("input", function(){
+
+    calculateTest(
+        "tamil_total",
+        "tamil_obtained",
+        "tamil_percentage",
+        "tamil_grade"
+    );
+
+});
+
+
+document.getElementById("english_obtained")
+.addEventListener("input", function(){
+
+    calculateTest(
+        "english_total",
+        "english_obtained",
+        "english_percentage",
+        "english_grade"
+    );
+
+});
+
+
+document.getElementById("science_obtained")
+.addEventListener("input", function(){
+
+    calculateTest(
+        "science_total",
+        "science_obtained",
+        "science_percentage",
+        "science_grade"
+    );
+
+});
+
+
+/* =========================================================
+   SAVE REPORT
+========================================================= */
+
+async function saveReport() {
+
+    const saveButton =
+        document.getElementById("saveButton");
+
+    /* ---------------------------------------------
+       BASIC VALIDATION
+    --------------------------------------------- */
+
+    const studentName =
+        getValue("student_name").trim();
+
+    const reportDate =
+        getValue("date");
+
+    if (!studentName) {
+
+        alert(
+            "⚠️ Please enter Student Name."
+        );
+
+        return;
+    }
+
+    if (!reportDate) {
+
+        alert(
+            "⚠️ Please select Date."
+        );
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       DISABLE BUTTON
+    --------------------------------------------- */
+
+    saveButton.disabled = true;
+
+    saveButton.innerText =
+        "⏳ Saving Report...";
+
+
+    /* ---------------------------------------------
+       LEARNING OBJECTIVES
+    --------------------------------------------- */
+
+    const learningObjectives = {
+
+        "Concept Explained Clearly":
+            getValue("objective_concept"),
+
+        "Student Understood the Lesson":
+            getValue("objective_understood"),
+
+        "Doubts Cleared":
+            getValue("objective_doubts"),
+
+        "Revision Completed":
+            getValue("objective_revision"),
+
+        "Practice Questions Completed":
+            getValue("objective_practice")
+
+    };
+
+
+    /* ---------------------------------------------
+       LEARNING ASSESSMENT
+    --------------------------------------------- */
+
+    const learningAssessment = {
+
+        "Understanding Weekly's Lesson":
+            getValue("assessment_understanding"),
+
+        "Memory & Recall":
+            getValue("assessment_memory"),
+
+        "Problem Solving Ability":
+            getValue("assessment_problem"),
+
+        "Speed of Learning":
+            getValue("assessment_speed"),
+
+        "Application of Concepts":
+            getValue("assessment_application")
+
+    };
+
+
+    /* ---------------------------------------------
+       BEHAVIOUR
+    --------------------------------------------- */
+
+    const behaviour = {
+
+        "Respect Towards Teacher":
+            getValue("behaviour_respect"),
+
+        "Class Discipline":
+            getValue("behaviour_discipline"),
+
+        "Participation":
+            getValue("behaviour_participation")
+
+    };
+
+
+    /* ---------------------------------------------
+       ACADEMIC SKILLS
+    --------------------------------------------- */
+
+    const academicSkills = {
+
+        "Reading Skill":
+            getValue("skill_reading"),
+
+        "Writing Skill":
+            getValue("skill_writing"),
+
+        "Speaking Skill":
+            getValue("skill_speaking"),
+
+        "Listening Skill":
+            getValue("skill_listening"),
+
+        "Communication Skill":
+            getValue("skill_communication")
+
+    };
+
+
+    /* ---------------------------------------------
+       IMPROVEMENT AREAS
+    --------------------------------------------- */
+
+    const improvementAreas = {
+
+        "Reading Practice":
+            getValue("reading_priority"),
+
+        "Revision":
+            getValue("revision_priority"),
+
+        "Time Management":
+            getValue("time_management_priority"),
+
+        "Concentration":
+            getValue("concentration_priority"),
+
+        "Mathematics Practice":
+            getValue("mathematics_priority")
+
+    };
+
+
+    /* ---------------------------------------------
+       IMPORTANT NOTES
+    --------------------------------------------- */
+
+    const importantNotes = {
+
+        "additional_revision":
+            getChecked("additional_revision"),
+
+        "exceptional_performance":
+            getChecked("exceptional_performance"),
+
+        "parent_meeting":
+            getChecked("parent_meeting"),
+
+        "notebook":
+            getChecked("notebook"),
+
+        "worksheets":
+            getChecked("worksheets"),
+
+        "oral_test":
+            getChecked("oral_test"),
+
+        "unit_test":
+            getChecked("unit_test"),
+
+        "excellent_improvement":
+            getChecked("excellent_improvement")
+
+    };
+
+
+    /* ---------------------------------------------
+       OVERALL EVALUATION
+    --------------------------------------------- */
+
+    const overallEvaluation = {
+
+        "Overall Progress":
+            getValue("evaluation_progress"),
+
+        "Overall Behaviour":
+            getValue("evaluation_behaviour"),
+
+        "Overall Participation":
+            getValue("evaluation_participation"),
+
+        "Overall Performance":
+            getValue("evaluation_performance")
+
+    };
+
+
+    /* ---------------------------------------------
+       MEETING RECORD
+    --------------------------------------------- */
+
+    const meetingRecord = {
+
+        "date":
+            getValue("meeting_date"),
+
+        "discussion":
+            getValue("meeting_discussion"),
+
+        "action_taken":
+            getValue("meeting_action")
+
+    };
+
+
+    /* ---------------------------------------------
+       NEXT CLASS PREPARATION
+    --------------------------------------------- */
+
+    const nextClassPreparation = {
+
+        "subject":
+            getValue("next_subject"),
+
+        "topic":
+            getValue("next_topic"),
+
+        "materials":
+            getValue("materials_required")
+
+    };
+
+
+    /* ---------------------------------------------
+       COMPLETE REPORT OBJECT
+    --------------------------------------------- */
+
+    const report = {
+
+        /* Student */
+
+        student_name:
+            studentName,
+
+        student_class:
+            getValue("student_class"),
+
+        parent_name:
+            getValue("parent_name"),
+
+        contact_no:
+            getValue("contact_no"),
+
+
+        /* Date */
+
+        date:
+            reportDate,
+
+        day:
+            getValue("day"),
+
+
+        /* Session */
+
+        session_time:
+            getValue("session_time"),
+
+        duration:
+            getValue("duration"),
+
+        tutor_name:
+            getValue("tutor_name"),
+
+        class_type:
+            getValue("class_type"),
+
+
+        /* Attendance */
+
+        arrival_time:
+            getValue("arrival_time"),
+
+        departure_time:
+            getValue("departure_time"),
+
+        attendance:
+            "Present",
+
+        punctuality:
+            getValue("punctuality"),
+
+
+        /* Subjects */
+
+        mathematics_topic:
+            getValue("mathematics_topics"),
+
+        mathematics_completed:
+            getBoolean("mathematics_completed"),
+
+
+        science_topic:
+            getValue("science_topics"),
+
+        science_completed:
+            getBoolean("science_completed"),
+
+
+        english_topic:
+            getValue("english_topics"),
+
+        english_completed:
+            getBoolean("english_completed"),
+
+
+        tamil_topic:
+            getValue("tamil_topics"),
+
+        tamil_completed:
+            getBoolean("tamil_completed"),
+
+
+        social_science_topic:
+            getValue("social_science_topics"),
+
+        social_science_completed:
+            getBoolean("social_science_completed"),
+
+
+        /* JSON fields */
+
+        learning_objectives:
+            learningObjectives,
+
+        learning_assessment:
+            learningAssessment,
+
+        behaviour:
+            behaviour,
+
+        academic_skills:
+            academicSkills,
+
+
+        /* Performance */
+
+        overall_performance:
+            getValue("overall_performance"),
+
+
+        /* Improvement */
+
+        improvement_areas:
+            JSON.stringify(improvementAreas),
+
+
+        /* Text */
+
+        achievements:
+            getValue("achievements"),
+
+        next_class_goals:
+            getValue("next_class_goals"),
+
+        teacher_remarks:
+            getValue("teacher_remarks"),
+
+        parent_feedback:
+            getValue("parent_feedback"),
+
+
+        /* Notes */
+
+        important_notes:
+            JSON.stringify(importantNotes),
+
+
+        /* Evaluation */
+
+        overall_evaluation:
+            JSON.stringify(overallEvaluation),
+
+
+        /* Meeting */
+
+        meeting_record:
+            JSON.stringify(meetingRecord),
+
+
+        /* Next Class */
+
+        next_class_preparation:
+            JSON.stringify(nextClassPreparation),
+
+
+        /* Signature */
+
+        teacher_signature:
+            "",
+
+        parent_signature:
+            getValue("parent_signature"),
+
+
+        /* Tests */
+
+        maths_total:
+            getValue("maths_total"),
+
+        maths_obtained:
+            getValue("maths_obtained"),
+
+        maths_percentage:
+            getValue("maths_percentage"),
+
+        maths_grade:
+            getValue("maths_grade"),
+
+
+        tamil_total:
+            getValue("tamil_total"),
+
+        tamil_obtained:
+            getValue("tamil_obtained"),
+
+        tamil_percentage:
+            getValue("tamil_percentage"),
+
+        tamil_grade:
+            getValue("tamil_grade"),
+
+
+        english_total:
+            getValue("english_total"),
+
+        english_obtained:
+            getValue("english_obtained"),
+
+        english_percentage:
+            getValue("english_percentage"),
+
+        english_grade:
+            getValue("english_grade"),
+
+
+        science_total:
+            getValue("science_total"),
+
+        science_obtained:
+            getValue("science_obtained"),
+
+        science_percentage:
+            getValue("science_percentage"),
+
+        science_grade:
+            getValue("science_grade")
+
+    };
+
+
+    console.log(
+        "Sending report to Django:",
+        report
+    );
+
+
+    /* ---------------------------------------------
+       SEND TO DJANGO
+    --------------------------------------------- */
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:8000/api/reports/create/",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body:
+                    JSON.stringify(report)
+            }
+        );
+
+
+        /* -----------------------------------------
+           READ RESPONSE
+        ----------------------------------------- */
+
+        let result;
+
+        try {
+
+            result =
+                await response.json();
+
+        }
+        catch (jsonError) {
+
+            const text =
+                await response.text();
+
+            throw new Error(
+                "Django returned an invalid response: " +
+                text
+            );
+
+        }
+
+
+        console.log(
+            "Django response:",
+            result
+        );
+
+
+        /* -----------------------------------------
+           ERROR
+        ----------------------------------------- */
+
+        if (!response.ok) {
+
+            alert(
+                "❌ Failed to save report.\n\n" +
+                (
+                    result.error ||
+                    result.message ||
+                    "Django returned an error."
+                )
+            );
+
+            return;
+        }
+
+
+        /* -----------------------------------------
+           SUCCESS
+        ----------------------------------------- */
+
+        alert(
+            "✅ Report saved successfully!\n\n" +
+            "Report ID: " +
+            result.report_id +
+            "\n\n" +
+            "Student ID: " +
+            result.student_id
+        );
+
+
+        /* -----------------------------------------
+           OPEN REPORT LIST
+        ----------------------------------------- */
+
+        window.location.href =
+            "http://127.0.0.1:8000/api/reports/list/";
+
+    }
+
+
+    /* ---------------------------------------------
+       CONNECTION ERROR
+    --------------------------------------------- */
+
+    catch (error) {
+
+        console.error(
+            "Save error:",
+            error
+        );
+
+        alert(
+            "❌ Cannot connect to Django.\n\n" +
+            error.message
+        );
+
+    }
+
+
+    /* ---------------------------------------------
+       ENABLE BUTTON
+    --------------------------------------------- */
+
+    finally {
+
+        saveButton.disabled = false;
+
+        saveButton.innerText =
+            "💾 Save Report";
+
+    }
+
+}
+
+
+/* =========================================================
+   AUTOMATICALLY SET TODAY'S DATE
+========================================================= */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const dateInput =
+            document.getElementById("date");
+
+        if (!dateInput.value) {
+
+            const today =
+                new Date();
+
+            const year =
+                today.getFullYear();
+
+            const month =
+                String(
+                    today.getMonth() + 1
+                ).padStart(2,"0");
+
+            const day =
+                String(
+                    today.getDate()
+                ).padStart(2,"0");
+
+            dateInput.value =
+                `${year}-${month}-${day}`;
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
